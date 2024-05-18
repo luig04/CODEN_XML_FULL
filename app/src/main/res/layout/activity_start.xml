@@ -102,4 +102,21 @@
         app:layout_constraintTop_toBottomOf="@+id/buttonCR" />
 
 
+
+    <Button
+        android:id="@+id/buttonacercade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:background="@android:color/transparent"
+        android:fontFamily="@font/inter"
+        android:text="¡Acerca de Coden!"
+        android:textAllCaps="false"
+        android:textColor="#989898"
+        android:textSize="15dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintEnd_toEndOf="@+id/buttonAC"
+        app:layout_constraintStart_toStartOf="@+id/buttonAC"
+        app:layout_constraintTop_toBottomOf="@+id/buttonAC" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
