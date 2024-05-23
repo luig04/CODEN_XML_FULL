@@ -7,6 +7,7 @@ android {
     namespace = "com.adso.appluic"
     compileSdk = 34
 
+
     defaultConfig {
         applicationId = "com.adso.appluic"
         minSdk = 24
@@ -17,6 +18,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -24,6 +26,9 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildFeatures {
+                dataBinding=true
+            }
         }
     }
     compileOptions {

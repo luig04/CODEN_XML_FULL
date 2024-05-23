@@ -1,19 +1,73 @@
 package com.adso.appluic
+
+
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import com.adso.appluic.databinding.ActivityHcursosBinding
 
 class HcursosActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityHcursosBinding
+    private lateinit var navBarFragment: FragmentNavBar
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_hcursos)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.fragment_navbar)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+        binding = ActivityHcursosBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        // Configurar los fragmentos
+        navBarFragment = FragmentNavBar()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_navbar, navBarFragment)
+            .replace(R.id.fragmentContenedorhome, FragmentContenedor())
+            .commit()
+
+        // Configurar OnClickListener para los ítems del BottomNavigationView
+        binding.navmenu.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navigationHome -> {
+                    Toast.makeText(this, "Home presionado", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                R.id.navigationRanking -> {
+                    Toast.makeText(this, "Ranking presionado", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                R.id.navigationLogros -> {
+                    Toast.makeText(this, "Logros presionados", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                R.id.navigationArticulos -> {
+                    Toast.makeText(this, "Artículos presionados", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                else -> false
+            }
         }
+
+        // Escuchar los eventos del ciclo de vida de los fragmentos
+        supportFragmentManager.registerFragmentLifecycleCallbacks(
+            object : androidx.fragment.app.FragmentManager.FragmentLifecycleCallbacks() {
+                override fun onFragmentViewCreated(
+                    fm: androidx.fragment.app.FragmentManager,
+                    f: androidx.fragment.app.Fragment,
+                    v: View,
+                    savedInstanceState: Bundle?
+                ) {
+                    if (f is FragmentNavBar) {
+                        f.binding.imagelogo.setOnClickListener {
+                            Toast.makeText(this@HcursosActivity, "Logo presionado", Toast.LENGTH_SHORT).show()
+                        }
+                        f.binding.imageProfile.setOnClickListener {
+                            Toast.makeText(this@HcursosActivity, "Perfil presionado", Toast.LENGTH_SHORT).show()
+                        }
+                        f.binding.imagenotificaiones.setOnClickListener {
+                            Toast.makeText(this@HcursosActivity, "Notificaciones presionadas", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+            }, true
+        )
     }
 }
